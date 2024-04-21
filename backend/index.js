@@ -21,7 +21,7 @@ main().catch(err => console.log(err));
 
 app.use(
   cors({
-    origin: "https://e-notebook-updateone.vercel.app/about",
+    origin: "https://e-notebook-updateone.vercel.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
