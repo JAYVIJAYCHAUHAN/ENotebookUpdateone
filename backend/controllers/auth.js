@@ -50,7 +50,7 @@ module.exports.forgotPassword = async (req, res, next) => {
     const resetToken = await user.getResetPasswordToken()
     console.log(resetToken)
     await user.save()
-    const resetUrl = `https://enotebook8.vercel.app/passwordReset/${resetToken}`
+    const resetUrl = `http://localhost:3000/passwordReset/${resetToken}`
     const message = `
     <h1>You have requested for password reset</h1>
     <p>pls go to this link to reset your password</p>

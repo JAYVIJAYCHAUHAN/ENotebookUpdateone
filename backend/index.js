@@ -19,7 +19,13 @@ async function main() {
 }
 main().catch(err => console.log(err));
 
-app.use(cors())
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+  })
+);
 
 // middleware
 app.use(express.json())
