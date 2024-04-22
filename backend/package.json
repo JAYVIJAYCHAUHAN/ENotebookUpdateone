@@ -4,9 +4,8 @@
   "description": "iNotebook  - Your Notebook on the cloud",
   "main": "index.js",
   "scripts": {
-    
     "start": "nodemon index.js",
-       "vercel-build": "npm run build"
+    "vercel-build": "npm run build"
   },
   "author": "",
   "license": "ISC",

@@ -21,7 +21,7 @@ main().catch(err => console.log(err));
 
 app.use(
   cors({
-    origin: "https://e-notebook-updateone.vercel.app",
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
@@ -33,7 +33,7 @@ app.use(express.json())
 
 // Routes
 app.get('/', (req, res) => {
-    res.send("Hello wprld")
+    res.send("Hello world")
 })
 
 app.use('/api/auth', authRoute)
@@ -47,7 +47,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).json({success: false, message: err.message}); //For development
 })
 
-const port = process.env.PORT||8000
+const port = process.env.PORT||9000
 app.listen(port, (req, res) => {
     console.log(`Listening to the port ${port}`);
 
