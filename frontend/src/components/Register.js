@@ -39,7 +39,7 @@ function Register() {
         validationSchema: registerSchema,
         onSubmit: async (values) => {
             const {username, email, password} = values
-            const response = await fetch("http://localhost:3000/api/auth/createuser", {
+            const response = await fetch("https://e-notebook-updateone.vercel.app/api/auth/createuser", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
