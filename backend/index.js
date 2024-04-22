@@ -17,9 +17,17 @@ async function main() {
   console.log("Database connected");
 }
 main().catch(err => console.log(err));
-
+app.use(
+  "/about/api/auth/createuser",
+  cors({
+    origin: "https://e-notebook-updateone.vercel.app",
+    methods: "POST",
+    credentials: true,
+  })
+);
 app.use(
   cors({
+    
     origin: "https://e-notebook-updateone.vercel.app/about",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
