@@ -4,7 +4,7 @@ export const NoteContext = createContext()
 
 export function NoteProvider(props) {
 
-    const HOST = "http://localhost:3000"
+    const HOST = "http://localhost:8000"
 
     const initialNotes = []
 
