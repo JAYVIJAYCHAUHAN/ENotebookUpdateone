@@ -1,4 +1,5 @@
 // src/service-worker.js
+/* eslint-disable no-restricted-globals */
 
 import { precacheAndRoute } from "workbox-precaching";
 

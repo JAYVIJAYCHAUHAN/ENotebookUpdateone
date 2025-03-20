@@ -41,7 +41,7 @@ function Register() {
         onSubmit: async (values) => {
             const {username, email, password} = values
             const response = await fetch(
-              `${API_URL}/auth/createuser`,
+              `${API_URL}/api/auth/createuser`,
               {
                 method: "POST",
                 headers: {
