@@ -28,7 +28,7 @@ main();
 
 // CORS configuration
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  origin: '*', // Allow any origin for now, can be restricted later to specific frontend URLs
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
   optionsSuccessStatus: 204
