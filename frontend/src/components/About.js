@@ -71,7 +71,7 @@ function About() {
             <div className="col-md-6 d-flex flex-column justify-content-center">
               <h2 className="mb-3" style={{ fontWeight: "Bold" }}>
                 Supporting the{" "}
-                <span style={{ color: "#9C27B0" }}>internet’s visuals</span>{" "}
+                <span style={{ color: "#9C27B0" }}>internet's visuals</span>{" "}
               </h2>
               <p>
                 How we started? The concept was simple. eNotebook was born from
@@ -96,6 +96,39 @@ function About() {
                   Sign up now
                 </Button>
               </div>
+            </div>
+          </div>
+
+          <div className="card shadow-sm mb-4">
+            <div className="card-body">
+                <h4 className="card-title">Install eNotebook as an App</h4>
+                <p>eNotebook can be installed on your device as a Progressive Web App (PWA)!</p>
+                
+                <h5>On Desktop:</h5>
+                <ol>
+                    <li>Open Chrome or Edge browser</li>
+                    <li>Navigate to the eNotebook website</li>
+                    <li>Look for the install icon (⊕) in the address bar</li>
+                    <li>Click "Install"</li>
+                </ol>
+                
+                <h5>On Android:</h5>
+                <ol>
+                    <li>Open Chrome browser</li>
+                    <li>Navigate to the eNotebook website</li>
+                    <li>Tap the menu (⋮) in the top right</li>
+                    <li>Tap "Add to Home screen"</li>
+                </ol>
+                
+                <h5>On iPhone/iPad:</h5>
+                <ol>
+                    <li>Open Safari browser</li>
+                    <li>Navigate to the eNotebook website</li>
+                    <li>Tap the Share button</li>
+                    <li>Scroll down and tap "Add to Home Screen"</li>
+                </ol>
+                
+                <p className="mb-0 text-muted">Once installed, you can use eNotebook offline and it will sync when you're back online!</p>
             </div>
           </div>
         </div>

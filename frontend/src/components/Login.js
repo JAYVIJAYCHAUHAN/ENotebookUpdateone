@@ -47,7 +47,7 @@ function Login(props) {
             const json = await response.json()
 
             if (json.success) {
-                localStorage.setItem("token", json.authToken)
+                localStorage.setItem("token", json.accessToken)
                 navigate(`/`)
                 showAlert(`Welcome back ${values.username}`, "success")
             } else {

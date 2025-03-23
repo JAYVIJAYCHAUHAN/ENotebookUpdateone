@@ -1,9 +1,10 @@
 import React, {useContext} from 'react'
 import { NavLink } from "react-router-dom";
-import { Button, Box } from '@mui/material';
+import { Button, Box, Divider } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { AlertContext } from '../context/AlertContext';
 import ConnectionStatus from './ConnectionStatus';
+import InstallPWA from './InstallPWA';
 
 function Navbar() {
 
@@ -40,6 +41,9 @@ function Navbar() {
                             !localStorage.getItem('token') ?
                                 <div className="d-flex">
                                     <li className="nav-item">
+                                        <InstallPWA />
+                                    </li>
+                                    <li className="nav-item">
                                         <Button className="nav-link" aria-current="page" component={NavLink} to="/login" variant="text" color="secondary" style={{ textTransform: "none", fontFamily: "'Poppins', sans-serif", fontSize: "0.9rem" }}>
                                             Login
                                         </Button>
@@ -53,6 +57,9 @@ function Navbar() {
                                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Box sx={{ mr: 2 }}>
                                         <ConnectionStatus />
+                                    </Box>
+                                    <Box sx={{ mr: 2 }}>
+                                        <InstallPWA />
                                     </Box>
                                     <li>
                                         <Button onClick={handleLogout} className="nav-item" variant="outlined" color="secondary" style={{ textTransform: "none", fontFamily: "'Poppins', sans-serif", fontSize: "0.9rem" }}>

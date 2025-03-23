@@ -214,6 +214,14 @@ export function NoteProvider(props) {
 
     const add = async (newNotes) => {
         try {
+            // Debug token format
+            const token = localStorage.getItem('token');
+            console.log('Token Debug Info:');
+            console.log('- Token exists:', !!token);
+            console.log('- Token length:', token ? token.length : 0);
+            console.log('- Token format:', token ? (token.split('.').length === 3 ? 'Valid JWT (3 parts)' : `Invalid JWT (${token.split('.').length} parts)`) : 'No token');
+            console.log('- First 10 chars:', token ? token.substring(0, 10) + '...' : 'N/A');
+            
             const response = await fetch(`${BASE_URL}/notes/`, {
                 method: 'POST',
                 headers: getAuthHeaders(),
