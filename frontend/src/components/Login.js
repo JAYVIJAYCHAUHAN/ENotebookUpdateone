@@ -15,6 +15,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 function Login(props) {
     const API_URL = process.env.REACT_APP_API_URL || "https://enotebookupdateone-production.up.railway.app";
+    const BASE_URL = API_URL.endsWith('/api') ? API_URL : `${API_URL}/api`;
     
     const location = useLocation()
     const navigate = useNavigate()
@@ -34,7 +35,7 @@ function Login(props) {
         validationSchema: loginSchema,
         onSubmit: async (values) => {
             const response = await fetch(
-              `${API_URL}/auth/login`,
+              `${BASE_URL}/auth/login`,
               {
                 method: "POST",
                 headers: {

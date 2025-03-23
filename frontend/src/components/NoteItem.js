@@ -1,7 +1,8 @@
 import React, { useContext, memo } from 'react'
-import { IconButton } from '@mui/material';
+import { IconButton, Badge } from '@mui/material';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import EditIcon from '@mui/icons-material/Edit';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import { NoteContext } from '../context/notes/NoteContext';
 import { Dialog, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import useInputState from "../hooks/useInputState"
@@ -12,13 +13,16 @@ import useToggleState from '../hooks/useToggleState';
 
 function NoteItem({ note }) {
 
-    const { remove, edit } = useContext(NoteContext)
+    const { remove, edit, setActiveNote } = useContext(NoteContext)
 
     const [open, toggleOpen] = useToggleState(false)
 
     const [title, updateTitle] = useInputState(note.title)
     const [description, updateDescription] = useInputState(note.description)
     const [tag, updateTag] = useInputState(note.tag)
+
+    // Safely check if subNotes exists and is an array before accessing length
+    const subNoteCount = Array.isArray(note?.subNotes) ? note.subNotes.length : 0;
 
     const handleClickOpen = () => {
         toggleOpen()
@@ -31,6 +35,10 @@ function NoteItem({ note }) {
     const handleSubmit = (evt) => {
         evt.preventDefault()
         edit(title, description, tag, note._id)
+    }
+
+    const handleViewSubNotes = () => {
+        setActiveNote(note);
     }
 
     return (
@@ -58,15 +66,22 @@ function NoteItem({ note }) {
                 <div className="card-body">
                     <div className="d-flex align-items-center">
                         <h5 className="card-title">{note.title}</h5>
-                        <IconButton onClick={() => { remove(note._id) }} className="mb-2 ms-auto" color="secondary">
-                            <DeleteOutlineOutlinedIcon color="secondary" />
-                        </IconButton>
-                        <IconButton className="mb-2" color="secondary" onClick={handleClickOpen}>
-                            <EditIcon color="secondary" />
-                        </IconButton>
+                        <div className="ms-auto d-flex">
+                            <IconButton onClick={handleViewSubNotes} className="mb-2" color="primary">
+                                <Badge badgeContent={subNoteCount} color="primary">
+                                    <ListAltIcon />
+                                </Badge>
+                            </IconButton>
+                            <IconButton onClick={() => { remove(note._id) }} className="mb-2" color="secondary">
+                                <DeleteOutlineOutlinedIcon color="secondary" />
+                            </IconButton>
+                            <IconButton className="mb-2" color="secondary" onClick={handleClickOpen}>
+                                <EditIcon color="secondary" />
+                            </IconButton>
+                        </div>
                     </div>
                     <h6 className="card-subtitle mb-2 text-muted">{note.tag}</h6>
-                    <p className="card-text">{note.description.slice(0, 200)} ...</p>
+                    <p className="card-text">{note.description.slice(0, 500)} {note.description.length > 500 ? "..." : ""}</p>
                 </div>
             </div>
         </div>

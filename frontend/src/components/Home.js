@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import noteImg from '../images/inotebook.svg'
 import { Link } from "react-router-dom";
-import { Button } from '@mui/material';
+import { Button, Divider, Paper } from '@mui/material';
 import "../styles/home.css"
 import Notes from './Notes';
 import Navbar from "./Navbar";
 import Alertss from "./Alertss";
+import SubNotes from './SubNotes';
+import { NoteContext } from '../context/notes/NoteContext';
 
 function Home() {
-    console.log('hii')
+    const { activeNote } = useContext(NoteContext);
 
     return (
         <>
@@ -29,7 +31,18 @@ function Home() {
                     </div>
                 </div>
 
-                <Notes />
+                <div className="row mt-4">
+                    <div className={activeNote ? "col-md-7" : "col-md-12"}>
+                        <Notes />
+                    </div>
+                    {activeNote && (
+                        <div className="col-md-5">
+                            <Paper elevation={3} className="p-4 mb-4">
+                                <SubNotes noteId={activeNote._id} />
+                            </Paper>
+                        </div>
+                    )}
+                </div>
             </div>
         </>
     )

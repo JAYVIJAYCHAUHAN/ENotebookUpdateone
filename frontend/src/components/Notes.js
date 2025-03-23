@@ -4,7 +4,7 @@ import NoteItem from './NoteItem';
 import empty from '../images/empty.svg'
 import { useNavigate } from "react-router-dom";
 import { AlertContext } from '../context/AlertContext';
-
+import ErrorBoundary from './ErrorBoundary';
 
 function Notes() {
 
@@ -26,18 +26,29 @@ function Notes() {
     // Ensure notes is always an array
     const notesArray = Array.isArray(notes) ? notes : [];
 
+    const renderNotes = () => {
+        if (notesArray.length === 0) {
+            return (
+                <div className="d-flex ">
+                    <p style={{position: "absolute", left: "35%", bottom: "-10%"}}>Create your first note :) !!!!!</p>
+                    <img className="img-fluid ms-5 mt-3" src={empty} alt="empty" style={{width: "30%", opacity: "0.5"}} />
+                </div>
+            );
+        }
+        
+        return notesArray.map(note => (
+            <ErrorBoundary key={note._id} showDetails={false}>
+                <NoteItem note={note} />
+            </ErrorBoundary>
+        ));
+    };
+
     return (
         <div className="row ps-5 mt-4 mb-1">
             <h1 className="display-6">Your Notes: </h1>
-            {notesArray.length === 0 && 
-            <div className="d-flex ">
-                <p style={{position: "absolute", left: "35%", bottom: "-10%"}}>Create your first note :) !!!!!</p>
-                <img className="img-fluid ms-5 mt-3" src={empty} alt="empty" style={{width: "30%", opacity: "0.5"}} />
-            </div>
-            }
-            {notesArray.map(note => 
-                <NoteItem key={note._id} note={note} />
-            )}
+            <ErrorBoundary showDetails={false}>
+                {renderNotes()}
+            </ErrorBoundary>
         </div>
     )
 }

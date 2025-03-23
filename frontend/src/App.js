@@ -9,25 +9,28 @@ import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 function App() {
 
   return (
     <>
-      <NoteProvider>
-        <AlertProvider>
-          <Routes>
-            <Route path="/" index element={<Home />} />
-            <Route path="/new" index element={<AddNote />} />
-            <Route path="/about" index element={<About />} />
-            <Route path="/register" index element={<Register />} />
-            <Route path="/login" index element={<Login />} />
-            <Route path="/users/password/new" index element={<ForgotPassword />} />
-            <Route path="/users/password/edit/:resetToken" index element={< ResetPassword />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </AlertProvider>
-      </NoteProvider>
+      <ErrorBoundary showDetails={process.env.NODE_ENV === 'development'}>
+        <NoteProvider>
+          <AlertProvider>
+            <Routes>
+              <Route path="/" index element={<Home />} />
+              <Route path="/new" index element={<AddNote />} />
+              <Route path="/about" index element={<About />} />
+              <Route path="/register" index element={<Register />} />
+              <Route path="/login" index element={<Login />} />
+              <Route path="/users/password/new" index element={<ForgotPassword />} />
+              <Route path="/users/password/edit/:resetToken" index element={< ResetPassword />} />
+              <Route path="*" element={<PageNotFound />} />
+            </Routes>
+          </AlertProvider>
+        </NoteProvider>
+      </ErrorBoundary>
     </>
   );
 }

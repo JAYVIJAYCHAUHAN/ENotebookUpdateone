@@ -1,9 +1,9 @@
 import React, {useContext} from 'react'
 import { NavLink } from "react-router-dom";
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { AlertContext } from '../context/AlertContext';
-
+import ConnectionStatus from './ConnectionStatus';
 
 function Navbar() {
 
@@ -50,12 +50,16 @@ function Navbar() {
                                         </Button>
                                     </li>
                                 </div> :
-                                <li>
-                                    <Button onClick={handleLogout} className="nav-item ms-2" variant="outlined" color="secondary" style={{ textTransform: "none", fontFamily: "'Poppins', sans-serif", fontSize: "0.9rem" }}>
-                                        logout
-                                    </Button>
-                                </li>
-
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Box sx={{ mr: 2 }}>
+                                        <ConnectionStatus />
+                                    </Box>
+                                    <li>
+                                        <Button onClick={handleLogout} className="nav-item" variant="outlined" color="secondary" style={{ textTransform: "none", fontFamily: "'Poppins', sans-serif", fontSize: "0.9rem" }}>
+                                            Logout
+                                        </Button>
+                                    </li>
+                                </Box>
                         }
                     </ul>
                 </div>

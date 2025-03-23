@@ -12,6 +12,7 @@ import * as Yup from 'yup';
 
 function Register() {
     const API_URL = process.env.REACT_APP_API_URL || "https://enotebookupdateone-production.up.railway.app";
+    const BASE_URL = API_URL.endsWith('/api') ? API_URL : `${API_URL}/api`;
 
     const { showAlert } = useContext(AlertContext)
     const navigate = useNavigate()
@@ -41,7 +42,7 @@ function Register() {
         onSubmit: async (values) => {
             const {username, email, password} = values
             const response = await fetch(
-              `${API_URL}/auth/createuser`,
+              `${BASE_URL}/auth/createuser`,
               {
                 method: "POST",
                 headers: {

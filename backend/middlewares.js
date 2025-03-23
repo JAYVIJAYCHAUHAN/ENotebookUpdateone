@@ -46,3 +46,31 @@ module.exports.validateNewNote = (req,res, next) => {
         next()
     }
 }
+
+// Validate that required fields for sub-notes are present
+module.exports.validateSubNote = (req, res, next) => {
+    const { title, content } = req.body;
+    
+    if (!title || !content) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "Sub-note title and content are required fields" 
+        });
+    }
+    
+    if (typeof title !== 'string' || title.trim().length < 3) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "Sub-note title must be at least 3 characters long" 
+        });
+    }
+    
+    if (typeof content !== 'string' || content.trim().length < 3) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "Sub-note content must be at least 3 characters long" 
+        });
+    }
+    
+    next();
+}
