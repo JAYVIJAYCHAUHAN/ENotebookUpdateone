@@ -12,7 +12,7 @@ export function NoteProvider(props) {
 
     const getNotes = async () => {
         try {
-            const response = await fetch(`${HOST}/api/notes/`, {
+            const response = await fetch(`${HOST}/notes/`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export function NoteProvider(props) {
 
     const add = async (newNotes) => {
         try {
-            const response = await fetch(`${HOST}/api/notes/`, {
+            const response = await fetch(`${HOST}/notes/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export function NoteProvider(props) {
 
     const remove = async (removeId) => {
         try {
-            const response = await fetch(`${HOST}/api/notes/${removeId}`, {
+            const response = await fetch(`${HOST}/notes/${removeId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export function NoteProvider(props) {
 
     const edit = async (title, description, tag, id) => {
         try {
-            const response = await fetch(`${HOST}/api/notes/${id}`, {
+            const response = await fetch(`${HOST}/notes/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

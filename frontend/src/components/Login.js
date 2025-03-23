@@ -34,7 +34,7 @@ function Login(props) {
         validationSchema: loginSchema,
         onSubmit: async (values) => {
             const response = await fetch(
-              `${API_URL}/api/auth/login`,
+              `${API_URL}/auth/login`,
               {
                 method: "POST",
                 headers: {
