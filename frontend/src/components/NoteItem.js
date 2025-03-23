@@ -42,10 +42,9 @@ function NoteItem({ note }) {
     }
 
     return (
-        <div className="col-md-4 mt-2 mb-2">
-
-            <Dialog open={open} onClose={handleClose} >
-                <DialogTitle style={{ fontFamily: "'Poppins', sans-serif", fontWeight: "bold", fontSize: "2rem", paddingBottom: "0rem" }}>Edit Note</DialogTitle>
+        <div className="col-12 col-sm-6 col-md-4 col-lg-3 mt-2 mb-2">
+            <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm">
+                <DialogTitle style={{ fontFamily: "'Poppins', sans-serif", fontWeight: "bold", fontSize: "1.8rem", paddingBottom: "0rem" }}>Edit Note</DialogTitle>
                 <form onSubmit={handleSubmit}>
                     <DialogContent style={{ paddingTop: "0.5rem" }}>
                         <DialogContentText style={{ fontFamily: "'Poppins', sans-serif", fontSize: "1rem", marginBottom: "0.5rem" }}>
@@ -62,26 +61,54 @@ function NoteItem({ note }) {
                 </form>
             </Dialog>
 
-            <div className="card">
-                <div className="card-body">
-                    <div className="d-flex align-items-center">
-                        <h5 className="card-title">{note.title}</h5>
+            <div className="card h-100 shadow-sm">
+                <div className="card-body d-flex flex-column">
+                    <div className="d-flex align-items-center mb-2">
+                        <h5 className="card-title text-truncate mb-0" title={note.title}>{note.title}</h5>
                         <div className="ms-auto d-flex">
-                            <IconButton onClick={handleViewSubNotes} className="mb-2" color="primary">
+                            <IconButton 
+                                onClick={handleViewSubNotes} 
+                                size="small"
+                                className="me-1" 
+                                color="primary"
+                            >
                                 <Badge badgeContent={subNoteCount} color="primary">
-                                    <ListAltIcon />
+                                    <ListAltIcon fontSize={window.innerWidth < 768 ? 'small' : 'medium'} />
                                 </Badge>
                             </IconButton>
-                            <IconButton onClick={() => { remove(note._id) }} className="mb-2" color="secondary">
-                                <DeleteOutlineOutlinedIcon color="secondary" />
+                            <IconButton 
+                                onClick={() => { remove(note._id) }} 
+                                size="small"
+                                className="me-1" 
+                                color="secondary"
+                            >
+                                <DeleteOutlineOutlinedIcon fontSize={window.innerWidth < 768 ? 'small' : 'medium'} color="secondary" />
                             </IconButton>
-                            <IconButton className="mb-2" color="secondary" onClick={handleClickOpen}>
-                                <EditIcon color="secondary" />
+                            <IconButton 
+                                size="small" 
+                                color="secondary" 
+                                onClick={handleClickOpen}
+                            >
+                                <EditIcon fontSize={window.innerWidth < 768 ? 'small' : 'medium'} color="secondary" />
                             </IconButton>
                         </div>
                     </div>
-                    <h6 className="card-subtitle mb-2 text-muted">{note.tag}</h6>
-                    <p className="card-text">{note.description.slice(0, 500)} {note.description.length > 500 ? "..." : ""}</p>
+                    <h6 className="card-subtitle mb-2 text-muted text-truncate" title={note.tag}>{note.tag}</h6>
+                    <p className="card-text flex-grow-1" style={{ 
+                        overflow: 'hidden', 
+                        textOverflow: 'ellipsis', 
+                        display: '-webkit-box', 
+                        WebkitLineClamp: 4, 
+                        WebkitBoxOrient: 'vertical',
+                        fontSize: '0.9rem'
+                    }}>
+                        {note.description}
+                    </p>
+                    <div className="d-flex justify-content-end mt-2">
+                        <small className="text-muted">
+                            {note.createdAt ? new Date(note.createdAt).toLocaleDateString() : 'No date'}
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>

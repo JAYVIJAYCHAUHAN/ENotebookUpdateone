@@ -38,7 +38,8 @@ async function checkBackendHealth(baseUrl) {
       const notesResponse = await fetch(`${baseUrl}/notes`, {
         headers: {
           'Content-Type': 'application/json',
-          'auth-token': localStorage.getItem('token')
+          'auth-token': localStorage.getItem('token'),
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
       });
       
@@ -58,6 +59,16 @@ async function checkBackendHealth(baseUrl) {
   
   return results;
 }
+
+// Add a helper function at the top of the file to generate headers consistently
+const getAuthHeaders = () => {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'auth-token': token,
+        'Authorization': `Bearer ${token}`
+    };
+};
 
 export function NoteProvider(props) {
 
@@ -159,10 +170,7 @@ export function NoteProvider(props) {
                         
                         const response = await fetch(url, {
                             method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'auth-token': localStorage.getItem('token')
-                            },
+                            headers: getAuthHeaders(),
                             body: JSON.stringify(subNoteData),
                         });
                         
@@ -189,14 +197,13 @@ export function NoteProvider(props) {
 
     const getNotes = async () => {
         try {
+            setSyncing(true);
             const response = await fetch(`${BASE_URL}/notes/`, {
                 method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token' : localStorage.getItem('token')
-                },
+                headers: getAuthHeaders()
             })
             const json = await response.json()
+            console.log(json)
             // Ensure we always set an array to notes
             setNotes(Array.isArray(json) ? json : [])
         } catch (error) {
@@ -209,10 +216,7 @@ export function NoteProvider(props) {
         try {
             const response = await fetch(`${BASE_URL}/notes/`, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token' : localStorage.getItem('token')
-                },
+                headers: getAuthHeaders(),
                 body: JSON.stringify(newNotes),
             })
             const json = await response.json()
@@ -229,10 +233,7 @@ export function NoteProvider(props) {
         try {
             const response = await fetch(`${BASE_URL}/notes/${removeId}`, {
                 method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token' : localStorage.getItem('token')
-                },
+                headers: getAuthHeaders(),
             })
             const json = await response.json()
             // Make sure notes is treated as an array before filtering
@@ -250,10 +251,7 @@ export function NoteProvider(props) {
         try {
             const response = await fetch(`${BASE_URL}/notes/${id}`, {
                 method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token' : localStorage.getItem('token')
-                },
+                headers: getAuthHeaders(),
                 body: JSON.stringify({ title, description, tag })
             })
             const json = await response.json()
@@ -329,10 +327,7 @@ export function NoteProvider(props) {
                 try {
                     const response = await fetch(format.url, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'auth-token': localStorage.getItem('token')
-                        },
+                        headers: getAuthHeaders(),
                         body: JSON.stringify(subNote),
                     });
                     
@@ -478,12 +473,9 @@ export function NoteProvider(props) {
                 console.log(`Trying ${format.param} format URL: ${format.url}`);
                 
                 try {
-                    const response = await fetch(format.url, {
+                    const response = await fetch(`${BASE_URL}/notes/${encodedNoteId}/subnotes/${encodedSubNoteId}`, {
                         method: 'PUT',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'auth-token': localStorage.getItem('token')
-                        },
+                        headers: getAuthHeaders(),
                         body: JSON.stringify(updates),
                     });
                     

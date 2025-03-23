@@ -26,13 +26,25 @@ module.exports.validateUserLogin = (req, res, next) => {
 
 module.exports.fetchUser = (req, res, next) => {
     // Get user from jwt token and add id to req object
-    const token = req.header('auth-token')
-    if (token) {
-        const data = jwt.verify(token, 'b0742345623214e7f5aac75a4200799d80b55d26a62b97cd23015c33ae3ac11513e2e7')
-        req.user = data.user
-        next()
-    } else {
-        res.status(401).json({message: "Please authenticate with a valid Token"})  //401 acess denied
+    const token = req.header('auth-token') || req.header('Authorization')?.replace('Bearer ', '');
+    
+    if (!token) {
+        return res.status(401).json({message: "Please authenticate with a valid Token"})  //401 access denied
+    }
+    
+    try {
+        // Use environment variable for JWT_SECRET
+        const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret";
+        const data = jwt.verify(token, JWT_SECRET);
+        // Handle both formats - support legacy format (data.user) and new format with userId
+        req.user = data.user || data;
+        next();
+    } catch (error) {
+        console.error('JWT Verification Error:', error.name, error.message);
+        if (error.name === "TokenExpiredError") {
+            return res.status(403).json({ error: "Token expired. Please refresh your token." });
+        }
+        return res.status(400).json({ error: `Invalid token: ${error.message}` });
     }
 }
 

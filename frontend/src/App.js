@@ -10,6 +10,8 @@ import ResetPassword from "./components/ResetPassword";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import ErrorBoundary from "./components/ErrorBoundary";
+import UpdateNotification from "./components/UpdateNotification";
+import OfflineAlert from "./components/OfflineAlert";
 
 function App() {
 
@@ -28,6 +30,8 @@ function App() {
               <Route path="/users/password/edit/:resetToken" index element={< ResetPassword />} />
               <Route path="*" element={<PageNotFound />} />
             </Routes>
+            <UpdateNotification />
+            <OfflineAlert />
           </AlertProvider>
         </NoteProvider>
       </ErrorBoundary>

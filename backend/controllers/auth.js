@@ -9,8 +9,8 @@ const sendEmail = require('../utils/sendEmail');
 
     const JWT_SECRET = process.env.JWT_SECRET || "fallback-secret";
     const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "fallback-refresh-secret";
-    const ACCESS_TOKEN_EXPIRY = "15m"; // Short-lived access token
-    const REFRESH_TOKEN_EXPIRY = "7d"; // Long-lived refresh token
+    const ACCESS_TOKEN_EXPIRY = "15d"; // Access token valid for 15 days
+    const REFRESH_TOKEN_EXPIRY = "15d"; // Refresh token also valid for 15 days
 
 // Function to generate access & refresh tokens
 const generateTokens = (user) => {

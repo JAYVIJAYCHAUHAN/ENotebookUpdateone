@@ -44,11 +44,13 @@ function Notes() {
     };
 
     return (
-        <div className="row ps-5 mt-4 mb-1">
-            <h1 className="display-6">Your Notes: </h1>
-            <ErrorBoundary showDetails={false}>
-                {renderNotes()}
-            </ErrorBoundary>
+        <div className="container-fluid px-2 px-md-4 mt-4 mb-1">
+            <h1 className="display-6 mb-3">Your Notes</h1>
+            <div className="row g-3">
+                <ErrorBoundary showDetails={false}>
+                    {renderNotes()}
+                </ErrorBoundary>
+            </div>
         </div>
     )
 }

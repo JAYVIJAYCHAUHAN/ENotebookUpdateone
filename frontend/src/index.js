@@ -4,8 +4,15 @@ import App from './App';
 import { BrowserRouter } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles'
  
- 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#673ab7', // Purple
+    },
+    secondary: {
+      main: '#f50057', // Pink
+    },
+  },
   typography: {
     fontFamily: [
       "Poppins",
@@ -24,15 +31,16 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );
- // If you want your app to work offline and load faster, you can change
+
+// If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://cra.link/PWA
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').then(registration => {
-      console.log('SW registered: ', registration);
+    navigator.serviceWorker.register('/serviceWorker.js').then(registration => {
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
     }).catch(registrationError => {
-      console.log('SW registration failed: ', registrationError);
+      console.log('ServiceWorker registration failed: ', registrationError);
     });
   });
 }
